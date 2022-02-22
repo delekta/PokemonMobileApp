@@ -31,14 +31,21 @@ const HomeScreen = () => {
   const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([])
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon-species')
-      .then((response) => response.json())
-      .then((json) => {
-        setPokemons(json.results)
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const func = async () => {
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon')
+      const json = await response.json()
+      console.log(json.results)
+      setPokemons(json.results)
+    }
+    // fetch('https://pokeapi.co/api/v2/pokemon')r
+    // .then((response) => response.json())
+    // .then((json) => {
+    //   setPokemons(json.results)
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
+    func()
   }, [])
 
 
