@@ -1,7 +1,6 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
-import { RouteProp, StackNavigationState } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>

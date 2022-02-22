@@ -1,19 +1,18 @@
-import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen, { xd } from '../screens/HomeScreen';
+import HomeScreen from '../screens/HomeScreen';
 import SecondScreen from '../screens/SecondScreen';
 import ThirdScreen from '../screens/ThirdScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import PokemonDetailsScreen from '../screens/PokemonDetailsScreen';
+import { Pokemon } from '../interfaces/Pokemon';
 
 export type RootStackParamList = {
   Home: undefined;
   Second: undefined;
   Third: undefined;
   TabNavigator: undefined;
-  PokemonDetails: { pokemon: any };
-
+  PokemonDetails: { pokemon: Pokemon };
 }
 
 export class TabNavigator extends Component {

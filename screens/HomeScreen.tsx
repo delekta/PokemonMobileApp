@@ -3,12 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack';
 import type { RootStackParamList } from '../components/TabNavigator';
-
-
-interface Pokemon {
-  name: string;
-  url: string;
-}
+import { Pokemon } from '../interfaces/Pokemon';
 
 interface ListItemProps {
   pokemon: Pokemon
