@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, FlatList, SafeAreaView, StatusBar, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack';
+import type { RootStackParamList } from '../components/TabNavigator';
 
 
 interface Pokemon {
@@ -12,12 +14,16 @@ interface ListItemProps {
   pokemon: Pokemon
 }
 
+type PokemonDetailsScreenProp = StackNavigationProp<RootStackParamList, 'PokemonDetails'>;
+
 const ListItem = ({ pokemon }: ListItemProps) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<PokemonDetailsScreenProp>()
 
   return (
     <TouchableOpacity
-      style={styles.item}>
+      style={styles.item}
+      onPress={() => navigation.navigate('PokemonDetails', { pokemon: pokemon })}
+    >
       <Text style={styles.title}>
         {pokemon.name}
       </Text>
