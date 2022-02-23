@@ -1,4 +1,4 @@
-import { Text, View, Image, StyleSheet } from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
@@ -8,7 +8,6 @@ import { PokemonDetailsState } from '../interfaces/PokemonDetails';
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 
 
-
 // function asdf(t: number) {
 //     return new Promise((res) => setTimeout(res, t))
 // }
@@ -16,7 +15,8 @@ type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 export class PokemonDetailsScreen extends Component<Props> {
 
     state: PokemonDetailsState = {
-        pokemonDetails: null
+        pokemonDetails: null,
+        isShiny: false
     }
 
     async componentDidMount() {
@@ -24,6 +24,7 @@ export class PokemonDetailsScreen extends Component<Props> {
             const response = await fetch(this.props.route.params.pokemon.url)
             const json = await response.json()
             this.setState({
+                ...this.state.pokemonDetails,
                 pokemonDetails: json
             })
         }
@@ -33,13 +34,20 @@ export class PokemonDetailsScreen extends Component<Props> {
     render() {
         if (this.state.pokemonDetails) {
             return (
-                <View style={[styles.container, styles.shadowProp]}>
-                    <Image
-                        style={styles.mainImage}
-                        source={{
-                            uri: this.state.pokemonDetails.sprites.front_default
-                        }}
-                    />
+                <View style={styles.container}>
+                    <TouchableOpacity
+                        onPress={() => this.setState({
+                            ...this.state.pokemonDetails,
+                            isShiny: !this.state.isShiny
+                        })}
+                    >
+                        <Image
+                            style={styles.mainImage}
+                            source={{
+                                uri: this.state.isShiny ? this.state.pokemonDetails.sprites.front_shiny : this.state.pokemonDetails.sprites.front_default
+                            }}
+                        />
+                    </TouchableOpacity>
                     <View>
                         <Text>Name: {this.state.pokemonDetails.name.toUpperCase()}</Text>
                         <Text>Weight: {this.state.pokemonDetails.weight}</Text>
@@ -62,21 +70,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginHorizontal: '20%',
-        marginVertical: '20%',
         backgroundColor: "#ddd",
 
     },
     mainImage: {
         width: 200,
         height: 200,
-    },
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-    },
+    }
 });
 
 export default PokemonDetailsScreen
