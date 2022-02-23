@@ -5,17 +5,24 @@ import PokemonListItem from '../components/PokemonListItem';
 import { getPokemonsAPI } from '../api/PokemonAPI';
 
 
-
 const PokedexScreen = () => {
   const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([])
+  const [isFetching, setIsFetching] = useState<boolean>(false)
 
   useEffect(() => {
-    const getPokemons = async () => {
-      const json = await getPokemonsAPI()
-      setPokemons(json.results)
-    }
     getPokemons()
   }, [])
+
+  const getPokemons = async () => {
+    setIsFetching(true)
+    const json = await getPokemonsAPI()
+    setPokemons(json.results)
+    setIsFetching(false)
+  }
+
+  const onRefresh = () => {
+    getPokemons()
+  }
 
 
   return (
@@ -23,6 +30,8 @@ const PokedexScreen = () => {
       <FlatList<Pokemon>
         data={pokemons}
         keyExtractor={item => item.name}
+        onRefresh={() => onRefresh()}
+        refreshing={isFetching}
         renderItem={({ item }) => (
           <PokemonListItem
             pokemon={item}

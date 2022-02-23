@@ -1,3 +1,5 @@
+import { Alert } from "react-native";
+
 const GET_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon'
 
 export const getPokemonsAPI = async () => {
@@ -9,7 +11,12 @@ export const getPokemonAPI = async (pokemonURL: string) => {
 }
 
 const fetchAPI = async (url: string) => {
-    const response = await fetch(url)
-    const json = await response.json()
-    return json
+    try {
+        const response = await fetch(url)
+        const json = await response.json()
+        return json
+    } catch (e) {
+        console.error(e);
+        Alert.alert("Error while retrieving data.")
+    }
 }
