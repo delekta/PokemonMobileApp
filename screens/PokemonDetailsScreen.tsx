@@ -2,23 +2,12 @@ import { Text, View, Image, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
+import { PokemonDetailsState } from '../interfaces/PokemonDetails';
+
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 
-interface PokemonDetails {
-    name: string,
-    weight: number,
-    sprites: Sprite
-}
 
-interface Sprite {
-    front_default: string,
-    front_shiny: string
-}
-
-interface PokemonDetailsState {
-    pokemonDetails: PokemonDetails | null
-}
 
 // function asdf(t: number) {
 //     return new Promise((res) => setTimeout(res, t))
@@ -31,14 +20,14 @@ export class PokemonDetailsScreen extends Component<Props> {
     }
 
     async componentDidMount() {
-        const getPokemon = async () => {
+        const getPokemonDetails = async () => {
             const response = await fetch(this.props.route.params.pokemon.url)
             const json = await response.json()
             this.setState({
                 pokemonDetails: json
             })
         }
-        getPokemon()
+        getPokemonDetails()
     }
 
     render() {
