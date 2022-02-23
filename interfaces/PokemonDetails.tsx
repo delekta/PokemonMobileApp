@@ -13,10 +13,14 @@ export interface Sprite {
 
 export interface PokemonDetailsState {
     pokemonDetails: PokemonDetails | null
-    isShiny: Boolean
+    isShiny: boolean
 }
 
 export interface Ability {
+    ability: AbilityDetails
+}
+
+export interface AbilityDetails {
     name: string
 }
 

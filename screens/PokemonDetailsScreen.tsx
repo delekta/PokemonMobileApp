@@ -1,9 +1,11 @@
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
-import { PokemonDetailsState } from '../interfaces/PokemonDetails';
+import { Ability, PokemonDetailsState } from '../interfaces/PokemonDetails';
 import ToggleSwitch from 'toggle-switch-react-native';
+import { Ionicons } from '@expo/vector-icons';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
@@ -13,7 +15,7 @@ type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 //     return new Promise((res) => setTimeout(res, t))
 // }
 
-export class PokemonDetailsScreen extends Component<Props> {
+export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> {
 
     state: PokemonDetailsState = {
         pokemonDetails: null,
@@ -25,17 +27,18 @@ export class PokemonDetailsScreen extends Component<Props> {
             const response = await fetch(this.props.route.params.pokemon.url)
             const json = await response.json()
             this.setState({
-                ...this.state.pokemonDetails,
                 pokemonDetails: json
             })
+            console.log(this.state.pokemonDetails?.abilities)
         }
         getPokemonDetails()
     }
 
     render() {
-        if (this.state.pokemonDetails) {
+        const { pokemonDetails, isShiny } = this.state
+        if (pokemonDetails) {
             return (
-                <View style={styles.container}>
+                <ScrollView style={styles.container} bounces={false} contentContainerStyle={{ alignItems: 'center' }}>
                     <View
                         style={styles.toggleSwitchContainer}
                     >
@@ -47,22 +50,66 @@ export class PokemonDetailsScreen extends Component<Props> {
                             labelStyle={{ color: "black", fontWeight: "300" }}
                             size="small"
                             onToggle={() => this.setState({
-                                ...this.state.pokemonDetails,
-                                isShiny: !this.state.isShiny
+                                isShiny: !isShiny
                             })}
                         />
                     </View>
                     <Image
                         style={styles.mainImage}
                         source={{
-                            uri: this.state.isShiny ? this.state.pokemonDetails.sprites.front_shiny : this.state.pokemonDetails.sprites.front_default
+                            uri: this.state.isShiny ? pokemonDetails.sprites.front_shiny : pokemonDetails.sprites.front_default
                         }}
                     />
-                    <View>
-                        <Text>Name: {this.state.pokemonDetails.name.toUpperCase()}</Text>
-                        <Text>Weight: {this.state.pokemonDetails.weight}</Text>
+                    <View style={styles.detailsList}>
+                        <Text style={styles.name}>
+                            {pokemonDetails.name.toUpperCase()}
+                        </Text>
+
+                        <Text style={styles.header}>
+                            Abilities
+                        </Text>
+                        {/* <FlatList<Ability>
+                                data={pokemonDetails.abilities}
+                                scrollEnabled={false}
+                                keyExtractor={item => item.ability.name}
+                                renderItem={({ item }) => (
+                                    <View style={styles.abilityItem}>
+                                        <Ionicons style={{ paddingRight: 5 }} name="arrow-forward-sharp" size={12} color="black" />
+                                        <Text>{item.ability.name}</Text>
+                                    </View>
+                                )}
+                            /> */}
+                        <View style={styles.listContainer}>
+                            {
+                                pokemonDetails.abilities.map((item) =>
+                                    <View
+                                        style={styles.abilityItem}
+                                        key={item.ability.name}
+                                    >
+                                        <Ionicons style={{ paddingRight: 5 }} name="arrow-forward-sharp" size={12} color="black" />
+                                        <Text> {item.ability.name}</Text>
+                                    </View>
+                                )
+                            }
+                        </View>
+
+                        <Text style={styles.header}>
+                            Stats
+                        </Text>
+                        <View style={styles.statsContainer}>
+                            {
+                                pokemonDetails.stats.map((item) => (
+                                    <View style={styles.statsItem}>
+                                        <Text style={{ backgroundColor: 'white', width: '100%', textAlign: 'center' }}>{item.stat.name}</Text>
+                                        <Text>{item.base_stat}</Text>
+                                    </View>
+                                ))
+                            }
+                        </View>
+
                     </View>
-                </View>
+                </ScrollView>
+
             )
         }
         return (
@@ -78,10 +125,12 @@ export class PokemonDetailsScreen extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: "15%",
-        alignItems: 'center',
         backgroundColor: "#ddd",
-        position: 'relative'
+    },
+    name: {
+        fontSize: 25,
+        paddingBottom: 10,
+        fontWeight: 'bold'
 
     },
     mainImage: {
@@ -93,6 +142,34 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: '5%',
         top: '5%'
+    },
+
+    header: {
+        paddingVertical: 5,
+        fontSize: 15
+    },
+
+    abilityItem: {
+        flexDirection: 'row',
+        padding: 5,
+        alignItems: 'center'
+    },
+    statsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+    },
+
+    statsItem: {
+        width: '40%',
+        margin: 2,
+        alignItems: 'center',
+        borderWidth: 2,
+        backgroundColor: "#bbb",
+    },
+
+    detailsList: {
+        alignItems: 'center'
     }
 });
 
