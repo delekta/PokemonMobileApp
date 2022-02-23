@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
 import { PokemonDetailsState } from '../interfaces/PokemonDetails';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
@@ -35,19 +36,28 @@ export class PokemonDetailsScreen extends Component<Props> {
         if (this.state.pokemonDetails) {
             return (
                 <View style={styles.container}>
-                    <TouchableOpacity
-                        onPress={() => this.setState({
-                            ...this.state.pokemonDetails,
-                            isShiny: !this.state.isShiny
-                        })}
+                    <View
+                        style={styles.toggleSwitchContainer}
                     >
-                        <Image
-                            style={styles.mainImage}
-                            source={{
-                                uri: this.state.isShiny ? this.state.pokemonDetails.sprites.front_shiny : this.state.pokemonDetails.sprites.front_default
-                            }}
+                        <ToggleSwitch
+                            isOn={this.state.isShiny}
+                            onColor="green"
+                            offColor="gray"
+                            label="Shiny"
+                            labelStyle={{ color: "black", fontWeight: "300" }}
+                            size="small"
+                            onToggle={() => this.setState({
+                                ...this.state.pokemonDetails,
+                                isShiny: !this.state.isShiny
+                            })}
                         />
-                    </TouchableOpacity>
+                    </View>
+                    <Image
+                        style={styles.mainImage}
+                        source={{
+                            uri: this.state.isShiny ? this.state.pokemonDetails.sprites.front_shiny : this.state.pokemonDetails.sprites.front_default
+                        }}
+                    />
                     <View>
                         <Text>Name: {this.state.pokemonDetails.name.toUpperCase()}</Text>
                         <Text>Weight: {this.state.pokemonDetails.weight}</Text>
@@ -68,14 +78,21 @@ export class PokemonDetailsScreen extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        paddingTop: "15%",
         alignItems: 'center',
         backgroundColor: "#ddd",
+        position: 'relative'
 
     },
     mainImage: {
         width: 200,
         height: 200,
+    },
+
+    toggleSwitchContainer: {
+        position: 'absolute',
+        right: '5%',
+        top: '5%'
     }
 });
 
