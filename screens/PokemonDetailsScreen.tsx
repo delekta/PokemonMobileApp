@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { Text, View, Image, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
@@ -7,16 +7,22 @@ type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 
 interface PokemonDetails {
     name: string,
-    weight: number
+    weight: number,
+    sprites: Sprite
+}
+
+interface Sprite {
+    front_default: string,
+    front_shiny: string
 }
 
 interface PokemonDetailsState {
     pokemonDetails: PokemonDetails | null
 }
 
-function asdf(t: number) {
-    return new Promise((res) => setTimeout(res, t))
-}
+// function asdf(t: number) {
+//     return new Promise((res) => setTimeout(res, t))
+// }
 
 export class PokemonDetailsScreen extends Component<Props> {
 
@@ -25,31 +31,73 @@ export class PokemonDetailsScreen extends Component<Props> {
     }
 
     async componentDidMount() {
-        await asdf(2000);
-        fetch(this.props.route.params.pokemon.url)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json)
-                this.setState({
-                    pokemonDetails: json
-                })
-                console.log(this.state.pokemonDetails)
+        const getPokemon = async () => {
+            const response = await fetch(this.props.route.params.pokemon.url)
+            const json = await response.json()
+            this.setState({
+                pokemonDetails: json
             })
-            .catch((error) => {
-                console.error(error);
-            });
+        }
+        getPokemon()
+        // fetch(this.props.route.params.pokemon.url)
+        //     .then((response) => response.json())
+        //     .then((json) => {
+        //         this.setState({
+        //             pokemonDetails: json
+        //         })
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
     }
 
     render() {
         if (this.state.pokemonDetails) {
             return (
-                <View>
-                    <Text>{this.state.pokemonDetails.name} weight {this.state.pokemonDetails.weight}!</Text>
+                <View style={[styles.container, styles.shadowProp]}>
+                    <Image
+                        style={styles.mainImage}
+                        source={{
+                            uri: this.state.pokemonDetails.sprites.front_default
+                        }}
+                    />
+                    <View>
+                        <Text>Name: {this.state.pokemonDetails.name.toUpperCase()}</Text>
+                        <Text>Weight: {this.state.pokemonDetails.weight}</Text>
+                    </View>
                 </View>
             )
         }
-        return <View />
+        return (
+            <View>
+                <Text>
+                    Loading...
+                </Text>
+            </View>
+        )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: '20%',
+        marginVertical: '20%',
+        backgroundColor: "#ddd",
+
+    },
+    mainImage: {
+        width: 200,
+        height: 200,
+    },
+    shadowProp: {
+        shadowColor: '#171717',
+        shadowOffset: { width: -2, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
+});
 
 export default PokemonDetailsScreen
