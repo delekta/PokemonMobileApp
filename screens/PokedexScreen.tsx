@@ -27,7 +27,7 @@ const ListItem = ({ pokemon }: ListItemProps) => {
 
 
 
-const HomeScreen = () => {
+const PokedexScreen = () => {
   const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([])
 
   useEffect(() => {
@@ -37,21 +37,12 @@ const HomeScreen = () => {
       setPokemons(json.results)
     }
     getPokemons()
-    // fetch('https://pokeapi.co/api/v2/pokemon')r
-    // .then((response) => response.json())
-    // .then((json) => {
-    //   setPokemons(json.results)
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
   }, [])
 
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList<Pokemon>
-        style={styles.list}
         data={pokemons}
         keyExtractor={item => item.name}
         renderItem={({ item }) => (
@@ -77,10 +68,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-  },
-  list: {
-    backgroundColor: "red"
   }
 });
 
-export default HomeScreen
+export default PokedexScreen

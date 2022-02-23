@@ -39,16 +39,6 @@ export class PokemonDetailsScreen extends Component<Props> {
             })
         }
         getPokemon()
-        // fetch(this.props.route.params.pokemon.url)
-        //     .then((response) => response.json())
-        //     .then((json) => {
-        //         this.setState({
-        //             pokemonDetails: json
-        //         })
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
     }
 
     render() {
