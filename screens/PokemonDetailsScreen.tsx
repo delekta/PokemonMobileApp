@@ -2,14 +2,13 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'rea
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
-import { Ability, PokemonDetailsState } from '../interfaces/PokemonDetails';
+import { PokemonDetailsState } from '../interfaces/PokemonDetails';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
-// import { ScrollView } from 'react-native-gesture-handler';
+import { getPokemonAPI } from '../api/PokemonAPI';
 
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
-
 
 // function asdf(t: number) {
 //     return new Promise((res) => setTimeout(res, t))
@@ -24,12 +23,10 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
 
     async componentDidMount() {
         const getPokemonDetails = async () => {
-            const response = await fetch(this.props.route.params.pokemon.url)
-            const json = await response.json()
+            const json = await getPokemonAPI(this.props.route.params.pokemon.url)
             this.setState({
                 pokemonDetails: json
             })
-            console.log(this.state.pokemonDetails?.abilities)
         }
         getPokemonDetails()
     }
@@ -38,12 +35,12 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
         const { pokemonDetails, isShiny } = this.state
         if (pokemonDetails) {
             return (
-                <ScrollView style={styles.container} bounces={false} contentContainerStyle={{ alignItems: 'center' }}>
+                <ScrollView style={styles.container} bounces={false} contentContainerStyle={{ alignItems: 'center', paddingTop: 10 }}>
                     <View
                         style={styles.toggleSwitchContainer}
                     >
                         <ToggleSwitch
-                            isOn={this.state.isShiny}
+                            isOn={isShiny}
                             onColor="green"
                             offColor="gray"
                             label="Shiny"
@@ -57,7 +54,7 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
                     <Image
                         style={styles.mainImage}
                         source={{
-                            uri: this.state.isShiny ? pokemonDetails.sprites.front_shiny : pokemonDetails.sprites.front_default
+                            uri: isShiny ? pokemonDetails.sprites.front_shiny : pokemonDetails.sprites.front_default
                         }}
                     />
                     <View style={styles.detailsList}>
@@ -68,18 +65,7 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
                         <Text style={styles.header}>
                             Abilities
                         </Text>
-                        {/* <FlatList<Ability>
-                                data={pokemonDetails.abilities}
-                                scrollEnabled={false}
-                                keyExtractor={item => item.ability.name}
-                                renderItem={({ item }) => (
-                                    <View style={styles.abilityItem}>
-                                        <Ionicons style={{ paddingRight: 5 }} name="arrow-forward-sharp" size={12} color="black" />
-                                        <Text>{item.ability.name}</Text>
-                                    </View>
-                                )}
-                            /> */}
-                        <View style={styles.listContainer}>
+                        <View>
                             {
                                 pokemonDetails.abilities.map((item) =>
                                     <View
@@ -99,7 +85,9 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
                         <View style={styles.statsContainer}>
                             {
                                 pokemonDetails.stats.map((item) => (
-                                    <View style={styles.statsItem}>
+                                    <View
+                                        style={styles.statsItem}
+                                        key={item.stat.name}>
                                         <Text style={{ backgroundColor: 'white', width: '100%', textAlign: 'center' }}>{item.stat.name}</Text>
                                         <Text>{item.base_stat}</Text>
                                     </View>
@@ -125,13 +113,12 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#ddd",
+        backgroundColor: "#eee",
     },
     name: {
         fontSize: 25,
         paddingBottom: 10,
         fontWeight: 'bold'
-
     },
     mainImage: {
         width: 200,
@@ -141,12 +128,12 @@ const styles = StyleSheet.create({
     toggleSwitchContainer: {
         position: 'absolute',
         right: '5%',
-        top: '5%'
+        top: '2%'
     },
-
     header: {
         paddingVertical: 5,
-        fontSize: 15
+        fontWeight: '500',
+        fontSize: 20
     },
 
     abilityItem: {
@@ -159,7 +146,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexWrap: 'wrap',
     },
-
     statsItem: {
         width: '40%',
         margin: 2,
@@ -167,7 +153,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         backgroundColor: "#bbb",
     },
-
     detailsList: {
         alignItems: 'center'
     }

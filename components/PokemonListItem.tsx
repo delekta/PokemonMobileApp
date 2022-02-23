@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import type { RootStackParamList } from '../components/TabNavigator';
 import React, { useEffect, useState } from 'react'
 import { Pokemon } from '../interfaces/Pokemon';
+import { getPokemonAPI } from '../api/PokemonAPI';
 
 interface ListItemProps {
     pokemon: Pokemon
@@ -20,8 +21,7 @@ const PokemonListItem = ({ pokemon }: ListItemProps) => {
 
     useEffect(() => {
         const getPokemonDetails = async () => {
-            const response = await fetch(pokemon.url)
-            const json = await response.json()
+            const json = await getPokemonAPI(pokemon.url)
             setPokemonDetails(json)
         }
         getPokemonDetails()
