@@ -7,21 +7,26 @@ import { getPokemonsAPI } from '../api/pokemonAPI';
 
 const PokedexScreen = () => {
   const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([])
+  const [pokemonsLimit, setPokemonsLimit] = useState<number>(20)
   const [isFetching, setIsFetching] = useState<boolean>(false)
 
   useEffect(() => {
     getPokemons()
-  }, [])
+  }, [pokemonsLimit])
 
   const getPokemons = async () => {
     setIsFetching(true)
-    const json = await getPokemonsAPI()
+    const json = await getPokemonsAPI(pokemonsLimit)
     setPokemons(json.results)
     setIsFetching(false)
   }
 
   const onRefresh = () => {
     getPokemons()
+  }
+
+  const onEndRerached = () => {
+    setPokemonsLimit((pokemonsLimit + 20))
   }
 
 
@@ -37,6 +42,7 @@ const PokedexScreen = () => {
             pokemon={item}
           />
         )}
+        onEndReached={onEndRerached}
       />
     </SafeAreaView>
   )

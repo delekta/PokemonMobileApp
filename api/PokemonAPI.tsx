@@ -4,12 +4,14 @@ import { PokemonDetails } from '../interfaces/pokemonDetails'
 
 const GET_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon'
 
+export const POKEMON_COUNT = 1126
+
 type PokemonsData = {
     results: Array<Pokemon>
 }
 
-export const getPokemonsAPI = async (): Promise<PokemonsData> => {
-    return await fetchAPI(GET_POKEMONS_URL)
+export const getPokemonsAPI = async (limit: number): Promise<PokemonsData> => {
+    return await fetchAPI(GET_POKEMONS_URL + `?limit=${limit}`)
 }
 
 export const getPokemonAPI = async (pokemonURL: string): Promise<PokemonDetails> => {
