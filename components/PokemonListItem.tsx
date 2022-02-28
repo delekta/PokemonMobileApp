@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack';
 import type { RootStackParamList } from '../components/TabNavigator';
 import React, { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native';
 import Pokemon from '../interfaces/pokemon';
 import { getPokemonAPI } from '../api/pokemonAPI';
 
@@ -34,11 +35,7 @@ const PokemonListItem = ({ pokemon }: ListItemProps) => {
             tension={100}
             activeScale={0.95}
             key={pokemon.name}
-            containerStyle={{
-                marginHorizontal: 16,
-                marginVertical: 8,
-                borderRadius: 8,
-            }}
+            containerStyle={styles.containerStyle}
             onPress={() => navigation.navigate('PokemonDetails', { pokemon: pokemon })}
         >
             <Avatar rounded source={{ uri: pokemonDetails?.sprites.front_default }} />
@@ -52,5 +49,13 @@ const PokemonListItem = ({ pokemon }: ListItemProps) => {
         </ListItem>
     )
 }
+
+const styles = StyleSheet.create({
+    containerStyle: {
+        marginHorizontal: 16,
+        marginVertical: 8,
+        borderRadius: 8,
+    }
+})
 
 export default PokemonListItem;
