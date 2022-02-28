@@ -2,11 +2,11 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'rea
 import React, { Component, Context } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
-import { PokemonDetailsState } from '../interfaces/pokemonDetails';
+import { PokemonDetails, PokemonDetailsState } from '../interfaces/pokemonDetails';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getPokemonAPI } from '../api/pokemonAPI';
-import context, { InitialContextType } from '../state/context';
+import contextType from '../state/context';
 import { FontAwesome } from '@expo/vector-icons';
 
 
@@ -17,8 +17,9 @@ type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 // }
 
 export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> {
+    static contextType = contextType;
 
-    static contextType: Context<InitialContextType> = context;
+    declare context: React.ContextType<typeof contextType>;
 
     state: PokemonDetailsState = {
         pokemonDetails: null,
@@ -39,12 +40,12 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
 
     setIsFavouritePokemon = () => {
         this.setState({
-            isFavouritePokemon: this.context.isFavouritePokemon(this.state.pokemonDetails?.id)
+            isFavouritePokemon: this.context.isFavouritePokemon(this.state.pokemonDetails?.id as number)
         })
     }
 
     toggleFavouritePokemon = () => {
-        this.state.isFavouritePokemon ? this.context.removeFavouritePokemon(this.state.pokemonDetails?.id) : this.context.addFavouritePokemon(this.state.pokemonDetails)
+        this.state.isFavouritePokemon ? this.context.removeFavouritePokemon(this.state.pokemonDetails?.id as number) : this.context.addFavouritePokemon(this.state.pokemonDetails as PokemonDetails)
         this.setState({
             isFavouritePokemon: !this.state.isFavouritePokemon
         })

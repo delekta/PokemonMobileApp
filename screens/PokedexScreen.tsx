@@ -11,18 +11,18 @@ const PokedexScreen = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false)
 
   useEffect(() => {
-    getPokemons()
+    getPokemons(pokemonsLimit)
   }, [pokemonsLimit])
 
-  const getPokemons = async () => {
-    setIsFetching(true)
-    const json = await getPokemonsAPI(pokemonsLimit)
+  const getPokemons = async (limit: number) => {
+    const json = await getPokemonsAPI(limit)
     setPokemons(json.results)
-    setIsFetching(false)
   }
 
-  const onRefresh = () => {
-    getPokemons()
+  const onRefresh = async () => {
+    setIsFetching(true)
+    await getPokemons(pokemonsLimit)
+    setIsFetching(false)
   }
 
   const onEndRerached = () => {
