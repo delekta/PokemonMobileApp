@@ -18,11 +18,7 @@ export default class GlobalState extends React.Component {
     };
 
     isFavouritePokemon = (pokemonId: number): boolean => {
-        const res: boolean = this.state.favouritePokemons.some((pokemonDetails) => {
-            const res = pokemonDetails.id == pokemonId
-            return res
-        })
-        return res
+        return this.state.favouritePokemons.some((pokemonDetails) => pokemonDetails.id === pokemonId)
     };
 
     render() {
