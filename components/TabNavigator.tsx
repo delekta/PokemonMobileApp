@@ -5,7 +5,7 @@ import FavouritePokemonsScreen from '../screens/FavouritePokemonsScreen';
 import ThirdScreen from '../screens/ThirdScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import PokemonDetailsScreen from '../screens/PokemonDetailsScreen';
-import { Pokemon } from '../interfaces/Pokemon';
+import Pokemon from '../interfaces/pokemon';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export type RootStackParamList = {

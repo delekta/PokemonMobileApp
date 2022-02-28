@@ -1,12 +1,12 @@
 import { ListItem, Avatar } from 'react-native-elements'
-import { PokemonDetails } from '../interfaces/PokemonDetails';
+import { PokemonDetails } from '../interfaces/pokemonDetails';
 import TouchableScale from 'react-native-touchable-scale';
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack';
 import type { RootStackParamList } from '../components/TabNavigator';
 import React, { useEffect, useState } from 'react'
-import { Pokemon } from '../interfaces/Pokemon';
-import { getPokemonAPI } from '../api/PokemonAPI';
+import Pokemon from '../interfaces/pokemon';
+import { getPokemonAPI } from '../api/pokemonAPI';
 
 interface ListItemProps {
     pokemon: Pokemon

@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, FlatList, SafeAreaView, StatusBar, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Pokemon from '../interfaces/Pokemon';
+import Pokemon from '../interfaces/pokemon';
 import PokemonListItem from '../components/PokemonListItem';
-import { getPokemonsAPI } from '../api/PokemonAPI';
+import { getPokemonsAPI } from '../api/pokemonAPI';
 
 
 const PokedexScreen = () => {

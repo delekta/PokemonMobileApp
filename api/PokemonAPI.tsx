@@ -1,6 +1,6 @@
 import { Alert } from "react-native";
-import Pokemon from '../interfaces/Pokemon'
-import { PokemonDetails } from '../interfaces/PokemonDetails'
+import Pokemon from '../interfaces/pokemon'
+import { PokemonDetails } from '../interfaces/pokemonDetails'
 
 const GET_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon'
 

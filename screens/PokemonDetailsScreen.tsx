@@ -2,10 +2,10 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'rea
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
-import { PokemonDetailsState } from '../interfaces/PokemonDetails';
+import { PokemonDetailsState } from '../interfaces/pokemonDetails';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { getPokemonAPI } from '../api/PokemonAPI';
+import { getPokemonAPI } from '../api/pokemonAPI';
 
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
