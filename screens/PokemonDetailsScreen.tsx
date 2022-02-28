@@ -1,11 +1,13 @@
 import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component, Context } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
 import { PokemonDetailsState } from '../interfaces/pokemonDetails';
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getPokemonAPI } from '../api/pokemonAPI';
+import context, { InitialContextType } from '../state/context';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
@@ -16,9 +18,12 @@ type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 
 export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> {
 
+    static contextType: Context<InitialContextType> = context;
+
     state: PokemonDetailsState = {
         pokemonDetails: null,
-        isShiny: false
+        isShiny: false,
+        isFavouritePokemon: false
     }
 
     async componentDidMount() {
@@ -27,12 +32,26 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
             this.setState({
                 pokemonDetails: json
             })
+            this.setIsFavouritePokemon()
         }
         getPokemonDetails()
     }
 
+    setIsFavouritePokemon = () => {
+        this.setState({
+            isFavouritePokemon: this.context.isFavouritePokemon(this.state.pokemonDetails?.id)
+        })
+    }
+
+    toggleFavouritePokemon = () => {
+        this.state.isFavouritePokemon ? this.context.removeFavouritePokemon(this.state.pokemonDetails?.id) : this.context.addFavouritePokemon(this.state.pokemonDetails)
+        this.setState({
+            isFavouritePokemon: !this.state.isFavouritePokemon
+        })
+    }
+
     render() {
-        const { pokemonDetails, isShiny } = this.state
+        const { pokemonDetails, isShiny, isFavouritePokemon } = this.state
         if (pokemonDetails) {
             return (
                 <ScrollView style={styles.container} bounces={false} contentContainerStyle={{ alignItems: 'center', paddingTop: 10 }}>
@@ -46,9 +65,12 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
                             label="Shiny"
                             labelStyle={{ color: "black", fontWeight: "300" }}
                             size="small"
-                            onToggle={() => this.setState({
-                                isShiny: !isShiny
-                            })}
+                            onToggle={() => {
+                                this.setState({
+                                    isShiny: !isShiny
+                                })
+                            }
+                            }
                         />
                     </View>
                     <Image
@@ -61,6 +83,8 @@ export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> 
                         <Text style={styles.name}>
                             {pokemonDetails.name.toUpperCase()}
                         </Text>
+
+                        <FontAwesome name={isFavouritePokemon ? "star" : "star-o"} color="#CCCC00" size={30} onPress={this.toggleFavouritePokemon} />
 
                         <Text style={styles.header}>
                             Abilities

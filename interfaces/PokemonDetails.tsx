@@ -4,7 +4,9 @@ export interface PokemonDetails {
     sprites: Sprite
     abilities: [Ability]
     stats: [Stat]
+    id: number
 }
+
 
 interface Sprite {
     front_default: string,
@@ -31,4 +33,9 @@ interface StatName {
 export interface PokemonDetailsState {
     pokemonDetails: PokemonDetails | null
     isShiny: boolean
+    isFavouritePokemon: boolean
+}
+
+export interface FavouritePokemonsState {
+    favouritePokemons: Array<PokemonDetails>
 }
