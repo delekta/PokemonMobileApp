@@ -10,8 +10,12 @@ type PokemonsData = {
     results: Array<Pokemon>
 }
 
+const getLimitParameter = (limit: number): string => {
+    return `?limit=${limit}`
+}
+
 export const getPokemonsAPI = async (limit: number): Promise<PokemonsData> => {
-    return await fetchAPI(GET_POKEMONS_URL + `?limit=${limit}`)
+    return await fetchAPI(GET_POKEMONS_URL + getLimitParameter(limit))
 }
 
 export const getPokemonAPI = async (pokemonURL: string): Promise<PokemonDetails> => {
