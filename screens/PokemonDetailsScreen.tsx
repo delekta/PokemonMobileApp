@@ -1,71 +1,103 @@
-import { Text, View, Image, StyleSheet } from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import React, { Component } from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../components/TabNavigator';
+import { PokemonDetailsState } from '../interfaces/pokemonDetails';
+import ToggleSwitch from 'toggle-switch-react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { getPokemonAPI } from '../api/pokemonAPI';
+
 
 type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
-
-interface PokemonDetails {
-    name: string,
-    weight: number,
-    sprites: Sprite
-}
-
-interface Sprite {
-    front_default: string,
-    front_shiny: string
-}
-
-interface PokemonDetailsState {
-    pokemonDetails: PokemonDetails | null
-}
 
 // function asdf(t: number) {
 //     return new Promise((res) => setTimeout(res, t))
 // }
 
-export class PokemonDetailsScreen extends Component<Props> {
+export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> {
 
     state: PokemonDetailsState = {
-        pokemonDetails: null
+        pokemonDetails: null,
+        isShiny: false
     }
 
     async componentDidMount() {
-        const getPokemon = async () => {
-            const response = await fetch(this.props.route.params.pokemon.url)
-            const json = await response.json()
+        const getPokemonDetails = async () => {
+            const json = await getPokemonAPI(this.props.route.params.pokemon.url)
             this.setState({
                 pokemonDetails: json
             })
         }
-        getPokemon()
-        // fetch(this.props.route.params.pokemon.url)
-        //     .then((response) => response.json())
-        //     .then((json) => {
-        //         this.setState({
-        //             pokemonDetails: json
-        //         })
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
+        getPokemonDetails()
     }
 
     render() {
-        if (this.state.pokemonDetails) {
+        const { pokemonDetails, isShiny } = this.state
+        if (pokemonDetails) {
             return (
-                <View style={[styles.container, styles.shadowProp]}>
+                <ScrollView style={styles.container} bounces={false} contentContainerStyle={{ alignItems: 'center', paddingTop: 10 }}>
+                    <View
+                        style={styles.toggleSwitchContainer}
+                    >
+                        <ToggleSwitch
+                            isOn={isShiny}
+                            onColor="green"
+                            offColor="gray"
+                            label="Shiny"
+                            labelStyle={{ color: "black", fontWeight: "300" }}
+                            size="small"
+                            onToggle={() => this.setState({
+                                isShiny: !isShiny
+                            })}
+                        />
+                    </View>
                     <Image
                         style={styles.mainImage}
                         source={{
-                            uri: this.state.pokemonDetails.sprites.front_default
+                            uri: isShiny ? pokemonDetails.sprites.front_shiny : pokemonDetails.sprites.front_default
                         }}
                     />
-                    <View>
-                        <Text>Name: {this.state.pokemonDetails.name.toUpperCase()}</Text>
-                        <Text>Weight: {this.state.pokemonDetails.weight}</Text>
+                    <View style={styles.detailsList}>
+                        <Text style={styles.name}>
+                            {pokemonDetails.name.toUpperCase()}
+                        </Text>
+
+                        <Text style={styles.header}>
+                            Abilities
+                        </Text>
+                        <View>
+                            {
+                                pokemonDetails.abilities.map((item) =>
+                                    <View
+                                        style={styles.abilityItem}
+                                        key={item.ability.name}
+                                    >
+                                        <Ionicons style={{ paddingRight: 5 }} name="arrow-forward-sharp" size={12} color="black" />
+                                        <Text> {item.ability.name}</Text>
+                                    </View>
+                                )
+                            }
+                        </View>
+
+                        <Text style={styles.header}>
+                            Stats
+                        </Text>
+                        <View style={styles.statsContainer}>
+                            {
+                                pokemonDetails.stats.map((item) => (
+                                    <View
+                                        style={styles.statsItem}
+                                        key={item.stat.name}>
+                                        <Text style={{ backgroundColor: 'white', width: '100%', textAlign: 'center' }}>{item.stat.name}</Text>
+                                        <Text>{item.base_stat}</Text>
+                                    </View>
+                                ))
+                            }
+                        </View>
+
                     </View>
-                </View>
+                </ScrollView>
+
             )
         }
         return (
@@ -81,23 +113,49 @@ export class PokemonDetailsScreen extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginHorizontal: '20%',
-        marginVertical: '20%',
-        backgroundColor: "#ddd",
-
+        backgroundColor: "#eee",
+    },
+    name: {
+        fontSize: 25,
+        paddingBottom: 10,
+        fontWeight: 'bold'
     },
     mainImage: {
         width: 200,
         height: 200,
     },
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+
+    toggleSwitchContainer: {
+        position: 'absolute',
+        right: '5%',
+        top: '2%'
     },
+    header: {
+        paddingVertical: 5,
+        fontWeight: '500',
+        fontSize: 20
+    },
+
+    abilityItem: {
+        flexDirection: 'row',
+        padding: 5,
+        alignItems: 'center'
+    },
+    statsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+    },
+    statsItem: {
+        width: '40%',
+        margin: 2,
+        alignItems: 'center',
+        borderWidth: 2,
+        backgroundColor: "#bbb",
+    },
+    detailsList: {
+        alignItems: 'center'
+    }
 });
 
 export default PokemonDetailsScreen
