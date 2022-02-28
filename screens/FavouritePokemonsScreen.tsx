@@ -2,6 +2,7 @@ import { FlatList, SafeAreaView, Text, View, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import context from '../state/context';
 import { PokemonDetails } from '../interfaces/pokemonDetails';
+import FavouritePokemonListItem from '../components/FavouritePokemonListItem';
 
 export class FavouritePokemonsScreen extends Component {
   static contextType = context;
@@ -11,22 +12,12 @@ export class FavouritePokemonsScreen extends Component {
       <SafeAreaView>
         <FlatList<PokemonDetails>
           data={this.context.favouritePokemons}
-          keyExtractor={(pokemonDetails) => pokemonDetails.id}
-          renderItem={({ item, index }) => {
-            return (
-              <View
-                style={styles.rowcontainer}
-                key={index}>
-                <Text style={styles.text}>{item.name}</Text>
-                <Text
-                  style={styles.delete}
-                  onPress={() => { this.context.removeFavouritePokemon(item.id) }}
-                >
-                  delete
-                </Text>
-              </View>
-            )
-          }}
+          keyExtractor={pokemonDetails => pokemonDetails.id}
+          renderItem={({ item }) => (
+            <FavouritePokemonListItem
+              pokemonDetails={item}
+            />
+          )}
         />
       </SafeAreaView>
     )
