@@ -1,12 +1,18 @@
 import { Alert } from "react-native";
+import Pokemon from '../interfaces/Pokemon'
+import { PokemonDetails } from '../interfaces/PokemonDetails'
 
 const GET_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon'
 
-export const getPokemonsAPI = async () => {
+type PokemonsData = {
+    results: Array<Pokemon>
+}
+
+export const getPokemonsAPI = async (): Promise<PokemonsData> => {
     return await fetchAPI(GET_POKEMONS_URL)
 }
 
-export const getPokemonAPI = async (pokemonURL: string) => {
+export const getPokemonAPI = async (pokemonURL: string): Promise<PokemonDetails> => {
     return await fetchAPI(pokemonURL)
 }
 
