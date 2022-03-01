@@ -6,7 +6,7 @@ import { PokemonDetails, PokemonDetailsState } from '../interfaces/pokemonDetail
 import ToggleSwitch from 'toggle-switch-react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getPokemonAPI } from '../api/pokemonAPI';
-import contextType from '../state/context';
+import { PokemonContext } from '../context/PokemonContext';
 import { FontAwesome } from '@expo/vector-icons';
 
 
@@ -17,9 +17,9 @@ type Props = StackScreenProps<RootStackParamList, 'PokemonDetails'>
 // }
 
 export class PokemonDetailsScreen extends Component<Props, PokemonDetailsState> {
-    static contextType = contextType;
+    static contextType = PokemonContext;
 
-    declare context: React.ContextType<typeof contextType>;
+    declare context: React.ContextType<typeof PokemonContext>;
 
     state: PokemonDetailsState = {
         pokemonDetails: null,

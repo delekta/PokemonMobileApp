@@ -1,13 +1,13 @@
 import { FlatList, SafeAreaView, Text, View, StyleSheet } from 'react-native'
 import React, { Component, Context } from 'react'
-import contextType, { InitialContextType } from '../state/context';
+import { PokemonContext } from '../context/PokemonContext';
 import { PokemonDetails } from '../interfaces/pokemonDetails';
 import FavouritePokemonListItem from '../components/FavouritePokemonListItem';
 
 export class FavouritePokemonsScreen extends Component {
-  static contextType = contextType;
+  static contextType = PokemonContext;
 
-  declare context: React.ContextType<typeof contextType>
+  declare context: React.ContextType<typeof PokemonContext>
 
   render() {
     const { favouritePokemons } = this.context;

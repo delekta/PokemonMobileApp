@@ -1,7 +1,25 @@
 import React from 'react';
 import { FavouritePokemonsState, PokemonDetails } from '../interfaces/pokemonDetails';
-import Context from './context';
-export default class GlobalState extends React.Component {
+
+
+export interface InitPokemonContextType {
+    favouritePokemons: Array<PokemonDetails>,
+    addFavouritePokemon: (pokemon: PokemonDetails) => void,
+    removeFavouritePokemon: (pokemonId: number) => void,
+    isFavouritePokemon: (pokemonId: number) => boolean,
+}
+
+const initPokemonContext: InitPokemonContextType = {
+    favouritePokemons: [],
+    addFavouritePokemon: (pokemon: PokemonDetails) => { },
+    removeFavouritePokemon: (pokemonId: number) => { },
+    isFavouritePokemon: (pokemonId: number) => false,
+}
+
+export const PokemonContext = React.createContext<InitPokemonContextType>(initPokemonContext);
+
+
+export default class PokemonProvider extends React.Component {
     state: FavouritePokemonsState = {
         favouritePokemons: [],
     }
@@ -23,7 +41,7 @@ export default class GlobalState extends React.Component {
 
     render() {
         return (
-            <Context.Provider
+            <PokemonContext.Provider
                 value={{
                     favouritePokemons: this.state.favouritePokemons,
                     addFavouritePokemon: this.addFavouritePokemon,
@@ -32,7 +50,7 @@ export default class GlobalState extends React.Component {
                 }}
             >
                 {this.props.children}
-            </Context.Provider>
+            </PokemonContext.Provider>
         );
     }
 }

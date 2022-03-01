@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import { StackNavigator } from './components/TabNavigator';
-import GlobalState from './state/GlobalState';
+import PokemonProvider from './context/PokemonContext';
 
 export default function App() {
   return (
-    <GlobalState>
+    <PokemonProvider>
       <NavigationContainer>
         <StackNavigator />
       </NavigationContainer>
-    </GlobalState>
+    </PokemonProvider>
   );
 }

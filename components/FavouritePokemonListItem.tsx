@@ -4,14 +4,14 @@ import TouchableScale from 'react-native-touchable-scale';
 import React, { useContext } from 'react'
 import { StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import context, { InitialContextType } from '../state/context';
+import { PokemonContext, InitPokemonContextType } from '../context/PokemonContext';
 
 interface FavouriteListItemProps {
     pokemonDetails: PokemonDetails
 }
 
 const FavouritePokemonListItem = ({ pokemonDetails }: FavouriteListItemProps) => {
-    const { removeFavouritePokemon } = useContext<InitialContextType>(context)
+    const { removeFavouritePokemon } = useContext<InitPokemonContextType>(PokemonContext)
 
     return (
         <ListItem
