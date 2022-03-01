@@ -31,30 +31,26 @@ export class TabNavigator extends Component {
           name="Pokedex"
           component={PokedexScreen}
           options={{
-            tabBarIcon: ({ focused }) => {
-              return (
-                <MaterialCommunityIcons
-                  name="pokeball"
-                  size={30}
-                  color={focused ? "tomato" : "gray"}
-                />
-              );
-            },
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="pokeball"
+                size={30}
+                color={focused ? "tomato" : "gray"}
+              />
+            ),
           }}
         />
         <Tab.Screen
           name="Favourite"
           component={FavouritePokemonsScreen}
           options={{
-            tabBarIcon: ({ focused }) => {
-              return (
-                <MaterialCommunityIcons
-                  name="heart-outline"
-                  size={30}
-                  color={focused ? "tomato" : "gray"}
-                />
-              );
-            },
+            tabBarIcon: ({ focused }) => (
+              <MaterialCommunityIcons
+                name="heart-outline"
+                size={30}
+                color={focused ? "tomato" : "gray"}
+              />
+            ),
           }}
         />
         <Tab.Screen name="Third" component={ThirdScreen} />
