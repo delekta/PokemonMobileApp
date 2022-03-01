@@ -1,5 +1,5 @@
-import { Text, SafeAreaView } from 'react-native'
-import React, { Component } from 'react'
+import { Text, SafeAreaView } from "react-native";
+import React, { Component } from "react";
 
 export class ThirdScreen extends Component {
   render() {
@@ -7,8 +7,8 @@ export class ThirdScreen extends Component {
       <SafeAreaView>
         <Text>ThirdScreen</Text>
       </SafeAreaView>
-    )
+    );
   }
 }
 
-export default ThirdScreen
+export default ThirdScreen;
