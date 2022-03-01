@@ -4,5 +4,7 @@ module.exports = function (api) {
     presets: ['babel-preset-expo',
       ["@babel/preset-typescript", { allowDeclareFields: true }]
     ],
+    plugins: [
+      'react-native-reanimated/plugin'],
   };
 };
