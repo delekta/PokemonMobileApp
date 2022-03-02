@@ -22,6 +22,7 @@ const FavouritePokemonListItem = ({
   return (
     <ListItem
       Component={TouchableScale}
+      // @ts-expect-error
       friction={90}
       tension={100}
       activeScale={0.95}
