@@ -14,7 +14,7 @@ class ItemModal extends Component<ItemModalProps> {
     return (
       <View>
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={this.props.modalVisible}
           onRequestClose={() => {
@@ -26,8 +26,8 @@ class ItemModal extends Component<ItemModalProps> {
               <Text style={styles.modalText}>
                 {this.props.selectedItem.name.toUpperCase()}
               </Text>
-              <Text>{`id: ${this.props.selectedItem.id}`}</Text>
-              <Text>{`cost: ${this.props.selectedItem.cost}`}</Text>
+              <Text>id: {this.props.selectedItem.id}</Text>
+              <Text>cost: {this.props.selectedItem.cost}</Text>
               <TouchableOpacity
                 style={[styles.buttonClose, styles.button]}
                 onPress={() => {
