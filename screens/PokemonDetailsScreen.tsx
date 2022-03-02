@@ -18,6 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { getPokemonAPI } from "../api/pokemonAPI";
 import { PokemonContext } from "../context/PokemonContext";
 import { FontAwesome } from "@expo/vector-icons";
+import Animated, {PinwheelIn} from "react-native-reanimated";
 
 type Props = StackScreenProps<RootStackParamList, "PokemonDetails">;
 
@@ -95,7 +96,8 @@ export class PokemonDetailsScreen extends Component<
               }}
             />
           </View>
-          <Image
+          <Animated.Image
+            entering={PinwheelIn}
             style={styles.mainImage}
             source={{
               uri: isShiny
