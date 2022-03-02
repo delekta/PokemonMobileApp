@@ -11,6 +11,7 @@ interface ItemModalProps {
 
 class ItemModal extends Component<ItemModalProps> {
   render() {
+    const { id, name, cost } = this.props.selectedItem;
     return (
       <View>
         <Modal
@@ -23,11 +24,9 @@ class ItemModal extends Component<ItemModalProps> {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                {this.props.selectedItem.name.toUpperCase()}
-              </Text>
-              <Text>id: {this.props.selectedItem.id}</Text>
-              <Text>cost: {this.props.selectedItem.cost}</Text>
+              <Text style={styles.modalText}>{name.toUpperCase()}</Text>
+              <Text>id: {id}</Text>
+              <Text>cost: {cost}</Text>
               <TouchableOpacity
                 style={[styles.buttonClose, styles.button]}
                 onPress={() => {
