@@ -7,7 +7,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import PokemonDetailsScreen from "../screens/PokemonDetailsScreen";
 import Pokemon from "../interfaces/pokemon";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
-import ItemDetailsScreen from "../screens/ItemDetailsScreen";
 import Item from "../interfaces/Item";
 
 export type RootStackParamList = {
@@ -16,7 +15,6 @@ export type RootStackParamList = {
   Third: undefined;
   TabNavigator: undefined;
   PokemonDetails: { pokemon: Pokemon };
-  ItemDetails: { item: Item };
 };
 
 export class TabNavigator extends Component {
@@ -85,13 +83,6 @@ export class StackNavigator extends Component {
         <Stack.Screen
           name="PokemonDetails"
           component={PokemonDetailsScreen}
-          options={{
-            headerShown: true,
-          }}
-        />
-        <Stack.Screen
-          name="ItemDetails"
-          component={ItemDetailsScreen}
           options={{
             headerShown: true,
           }}

@@ -12,14 +12,7 @@ interface ItemsListItemProps {
   onPressItem: (item: Item) => void;
 }
 
-type ItemDetailsScreenProp = StackNavigationProp<
-  RootStackParamList,
-  "ItemDetails"
->;
-
 const ItemListItem = ({ item, onPressItem }: ItemsListItemProps) => {
-  const navigation = useNavigation<ItemDetailsScreenProp>();
-
   return (
     <ListItem
       Component={TouchableScale}
