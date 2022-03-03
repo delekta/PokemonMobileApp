@@ -1,5 +1,5 @@
 import { ListItem, Avatar } from "react-native-elements";
-import { PokemonDetails } from "../interfaces/pokemonDetails";
+import { PokemonDetails } from "../interfaces/PokemonDetails";
 import TouchableScale from "react-native-touchable-scale";
 import React, { useContext } from "react";
 import { StyleSheet } from "react-native";

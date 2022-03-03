@@ -1,5 +1,3 @@
-import { Animated } from "react-native";
-
 export interface PokemonDetails {
   name: string;
   weight: number;

@@ -6,7 +6,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import type { RootStackParamList } from "../components/TabNavigator";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import Pokemon from "../interfaces/pokemon";
+import Pokemon from "../interfaces/Pokemon";
 import { getPokemonAPI } from "../api/pokemonAPI";
 
 interface ListItemProps {

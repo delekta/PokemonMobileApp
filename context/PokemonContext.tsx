@@ -2,7 +2,7 @@ import React from "react";
 import {
   FavouritePokemonsState,
   PokemonDetails,
-} from "../interfaces/pokemonDetails";
+} from "../interfaces/PokemonDetails";
 
 export interface InitPokemonContextType {
   favouritePokemons: Array<PokemonDetails>;
