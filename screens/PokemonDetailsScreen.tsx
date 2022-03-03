@@ -8,15 +8,18 @@ import React, { Component} from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../components/TabNavigator";
 import {
+  Ability,
   PokemonDetails,
   PokemonDetailsState,
-} from "../interfaces/pokemonDetails";
+  Stat,
+} from "../interfaces/PokemonDetails";
 import ToggleSwitch from "toggle-switch-react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getPokemonAPI } from "../api/pokemonAPI";
 import { PokemonContext } from "../context/PokemonContext";
 import Animated, {PinwheelIn} from "react-native-reanimated";
 import FontAwesomeSpin from "../components/FontAwesomeSpin";
+import Item from "../interfaces/Item";
 
 type Props = StackScreenProps<RootStackParamList, "PokemonDetails">;
 
@@ -111,7 +114,7 @@ export class PokemonDetailsScreen extends Component<
 
             <Text style={styles.header}>Abilities</Text>
             <View>
-              {pokemonDetails.abilities.map((item) => (
+              {pokemonDetails.abilities.map((item: Ability) => (
                 <View style={styles.abilityItem} key={item.ability.name}>
                   <Ionicons
                     style={{ paddingRight: 5 }}
@@ -126,7 +129,7 @@ export class PokemonDetailsScreen extends Component<
 
             <Text style={styles.header}>Stats</Text>
             <View style={styles.statsContainer}>
-              {pokemonDetails.stats.map((item) => (
+              {pokemonDetails.stats.map((item: Stat) => (
                 <View style={styles.statsItem} key={item.stat.name}>
                   <Text
                     style={{

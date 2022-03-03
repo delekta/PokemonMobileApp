@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import Pokemon from "../interfaces/pokemon";
+import Pokemon from "../interfaces/Pokemon";
 import PokemonListItem from "../components/PokemonListItem";
 import { getPokemonsAPI } from "../api/pokemonAPI";
 

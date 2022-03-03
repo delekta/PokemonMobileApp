@@ -1,7 +1,7 @@
 import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
 import React, { Component, Context } from "react";
 import { PokemonContext } from "../context/PokemonContext";
-import { PokemonDetails } from "../interfaces/pokemonDetails";
+import { PokemonDetails } from "../interfaces/PokemonDetails";
 import FavouritePokemonListItem from "../components/FavouritePokemonListItem";
 
 export class FavouritePokemonsScreen extends Component {

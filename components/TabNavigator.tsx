@@ -5,7 +5,7 @@ import FavouritePokemonsScreen from "../screens/FavouritePokemonsScreen";
 import ThirdScreen from "../screens/ItemsScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import PokemonDetailsScreen from "../screens/PokemonDetailsScreen";
-import Pokemon from "../interfaces/pokemon";
+import Pokemon from "../interfaces/Pokemon";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import Item from "../interfaces/Item";
 
