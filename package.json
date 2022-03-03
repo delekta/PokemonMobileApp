@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
@@ -15,6 +16,7 @@
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
+    "apollo": "^2.33.9",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
     "graphql": "^16.3.0",
@@ -33,7 +35,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/cli": "2.6.2",
+    "@types/graphql": "^14.5.0",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
@@ -44,7 +47,14 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.2",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "typescript": "~4.3.5"
+    "typescript": "~4.3.5",
+    "@graphql-codegen/typescript-operations": "2.3.2",
+    "@graphql-codegen/typescript": "2.4.5",
+    "@graphql-codegen/typescript-react-apollo": "3.2.8",
+    "@graphql-codegen/introspection": "2.1.1"
   },
+  "resolutions": {
+    "graphql": "^0.13.0"
+},
   "private": true
 }
