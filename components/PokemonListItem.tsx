@@ -28,7 +28,7 @@ const PokemonListItem = ({ pokemon }: ListItemProps) => {
       setPokemonDetails(json);
     };
     getPokemonDetails();
-  }, []);
+  }, [pokemon.url]);
 
   return (
     <ListItem
