@@ -12,7 +12,7 @@ interface Sprite {
   front_shiny: string;
 }
 
-interface Ability {
+export interface Ability {
   ability: AbilityDetails;
 }
 
@@ -20,7 +20,7 @@ interface AbilityDetails {
   name: string;
 }
 
-interface Stat {
+export interface Stat {
   base_stat: number;
   stat: StatName;
 }
