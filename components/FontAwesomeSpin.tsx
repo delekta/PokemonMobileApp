@@ -30,7 +30,6 @@ class FontAwesomeSpin extends Component<FontAwesomeSpinProps> {
 
         const { toggleFavouritePokemon, isFavouritePokemon } = this.props;
         const rotate = this.spinValue.interpolate({inputRange: [0, 1], outputRange: ['0deg', '360deg']});
-        const sizeUp = this.spinValue.interpolate({inputRange: [0, 1], outputRange: [30, 32]})
 
         return(
             <Animated.View style={{transform: [{rotate}]}}>
