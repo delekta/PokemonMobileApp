@@ -2,12 +2,22 @@ import React, { Component } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PokedexScreen from "../screens/PokedexScreen";
 import FavouritePokemonsScreen from "../screens/FavouritePokemonsScreen";
-import ThirdScreen from "../screens/ItemsScreen";
-import { createStackNavigator } from "@react-navigation/stack";
+import ItemsScreen from "../screens/ItemsScreen";
+import {
+  createStackNavigator,
+  StackNavigationProp,
+  StackScreenProps,
+} from "@react-navigation/stack";
 import PokemonDetailsScreen from "../screens/PokemonDetailsScreen";
 import Pokemon from "../interfaces/Pokemon";
-import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  FontAwesome5,
+  Ionicons,
+} from "@expo/vector-icons";
 import Item from "../interfaces/Item";
+import { Button } from "react-native";
+import SettingsScreen from "../screens/SettingsScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -15,15 +25,17 @@ export type RootStackParamList = {
   Third: undefined;
   TabNavigator: undefined;
   PokemonDetails: { pokemon: Pokemon };
+  SettingsScreen: undefined;
 };
 
-export class TabNavigator extends Component {
+type TabNavigatorProps = StackScreenProps<RootStackParamList, "TabNavigator">;
+
+export class TabNavigator extends Component<TabNavigatorProps> {
   render() {
     const Tab = createBottomTabNavigator();
     return (
       <Tab.Navigator
         screenOptions={{
-          headerShown: false,
           tabBarActiveTintColor: "tomato",
           tabBarInactiveTintColor: "gray",
         }}
@@ -37,6 +49,14 @@ export class TabNavigator extends Component {
                 name="pokeball"
                 size={30}
                 color={focused ? "tomato" : "gray"}
+              />
+            ),
+            headerRight: () => (
+              <Ionicons
+                onPress={() => this.props.navigation.navigate("SettingsScreen")}
+                name="settings-outline"
+                size={25}
+                style={{ paddingRight: 10 }}
               />
             ),
           }}
@@ -56,7 +76,7 @@ export class TabNavigator extends Component {
         />
         <Tab.Screen
           name="Items"
-          component={ThirdScreen}
+          component={ItemsScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               return (
@@ -85,6 +105,14 @@ export class StackNavigator extends Component {
           component={PokemonDetailsScreen}
           options={{
             headerShown: true,
+          }}
+        />
+        <Stack.Screen
+          name="SettingsScreen"
+          component={SettingsScreen}
+          options={{
+            headerShown: false,
+            presentation: "modal",
           }}
         />
       </Stack.Navigator>
