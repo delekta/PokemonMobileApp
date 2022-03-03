@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
     flexWrap: "wrap",
   },

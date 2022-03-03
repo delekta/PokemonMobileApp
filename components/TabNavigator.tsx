@@ -17,7 +17,7 @@ import {
 } from "@expo/vector-icons";
 import Item from "../interfaces/Item";
 import { Button } from "react-native";
-import SettingsScreen from "../screens/SettingsScreen";
+import Settings from "../screens/SettingsScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -25,7 +25,7 @@ export type RootStackParamList = {
   Third: undefined;
   TabNavigator: undefined;
   PokemonDetails: { pokemon: Pokemon };
-  SettingsScreen: undefined;
+  Settings: undefined;
 };
 
 type TabNavigatorProps = StackScreenProps<RootStackParamList, "TabNavigator">;
@@ -53,7 +53,7 @@ export class TabNavigator extends Component<TabNavigatorProps> {
             ),
             headerRight: () => (
               <Ionicons
-                onPress={() => this.props.navigation.navigate("SettingsScreen")}
+                onPress={() => this.props.navigation.navigate("Settings")}
                 name="settings-outline"
                 size={25}
                 style={{ paddingRight: 10 }}
@@ -108,10 +108,9 @@ export class StackNavigator extends Component {
           }}
         />
         <Stack.Screen
-          name="SettingsScreen"
-          component={SettingsScreen}
+          name="Settings"
+          component={Settings}
           options={{
-            headerShown: false,
             presentation: "modal",
           }}
         />
