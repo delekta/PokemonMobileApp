@@ -21,17 +21,17 @@ const FavouritePokemonListItem = ({
     useContext<InitPokemonContextType>(PokemonContext);
 
   return (
-    <ListItem
-      key={pokemonDetails.name}
-      containerStyle={styles.containerStyle}
-    >
+    <ListItem key={pokemonDetails.name} containerStyle={styles.containerStyle}>
       <Avatar rounded source={{ uri: pokemonDetails?.sprites.front_default }} />
       <ListItem.Content>
         <ListItem.Title style={{ color: "black", fontWeight: "bold" }}>
           {pokemonDetails?.name.toUpperCase()}
         </ListItem.Title>
       </ListItem.Content>
-      <FontAwesomeTrash removeFavouritePokemon={removeFavouritePokemon} pokemonId={pokemonDetails.id}/>
+      <FontAwesomeTrash
+        removeFavouritePokemon={removeFavouritePokemon}
+        pokemonId={pokemonDetails.id}
+      />
     </ListItem>
   );
 };
