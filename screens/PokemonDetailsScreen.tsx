@@ -1,12 +1,10 @@
 import {
   Text,
   View,
-  Image,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { Component, Context } from "react";
+import React, { Component} from "react";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../components/TabNavigator";
 import {
@@ -17,8 +15,8 @@ import ToggleSwitch from "toggle-switch-react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { getPokemonAPI } from "../api/pokemonAPI";
 import { PokemonContext } from "../context/PokemonContext";
-import { FontAwesome } from "@expo/vector-icons";
 import Animated, {PinwheelIn} from "react-native-reanimated";
+import FontAwesomeSpin from "../components/FontAwesomeSpin";
 
 type Props = StackScreenProps<RootStackParamList, "PokemonDetails">;
 
@@ -108,12 +106,8 @@ export class PokemonDetailsScreen extends Component<
           <View style={styles.detailsList}>
             <Text style={styles.name}>{pokemonDetails.name.toUpperCase()}</Text>
 
-            <FontAwesome
-              name={isFavouritePokemon ? "star" : "star-o"}
-              color="#CCCC00"
-              size={30}
-              onPress={this.toggleFavouritePokemon}
-            />
+            {/* FontAwesomeSpin */}
+            <FontAwesomeSpin toggleFavouritePokemon={this.toggleFavouritePokemon} isFavouritePokemon={this.state.isFavouritePokemon}/>
 
             <Text style={styles.header}>Abilities</Text>
             <View>
