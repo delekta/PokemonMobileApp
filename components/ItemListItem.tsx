@@ -7,27 +7,22 @@ import TouchableScale from "react-native-touchable-scale";
 import Item from "../interfaces/Item";
 import { RootStackParamList } from "./TabNavigator";
 
-interface PokemonItemsListItemProps {
+interface ItemsListItemProps {
   item: Item;
+  onPressItem: (item: Item) => void;
 }
 
-type ItemDetailsScreenProp = StackNavigationProp<
-  RootStackParamList,
-  "ItemDetails"
->;
-
-const ItemListItem = ({ item }: PokemonItemsListItemProps) => {
-  const navigation = useNavigation<ItemDetailsScreenProp>();
-
+const ItemListItem = ({ item, onPressItem }: ItemsListItemProps) => {
   return (
     <ListItem
       Component={TouchableScale}
+      // @ts-expect-error
       friction={90}
       tension={100}
       activeScale={0.95}
       key={item.name}
       containerStyle={styles.containerStyle}
-      onPress={() => navigation.navigate("ItemDetails", { item: item })}
+      onPress={() => onPressItem(item)}
     >
       <ListItem.Content>
         <ListItem.Title style={{ color: "black", fontWeight: "bold" }}>

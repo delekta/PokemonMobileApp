@@ -8,6 +8,7 @@ import {
   PokemonContext,
   InitPokemonContextType,
 } from "../context/PokemonContext";
+import FontAwesomeTrash from "./FontAwesomeTrash";
 
 interface FavouriteListItemProps {
   pokemonDetails: PokemonDetails;
@@ -21,10 +22,6 @@ const FavouritePokemonListItem = ({
 
   return (
     <ListItem
-      Component={TouchableScale}
-      friction={90}
-      tension={100}
-      activeScale={0.95}
       key={pokemonDetails.name}
       containerStyle={styles.containerStyle}
     >
@@ -34,12 +31,7 @@ const FavouritePokemonListItem = ({
           {pokemonDetails?.name.toUpperCase()}
         </ListItem.Title>
       </ListItem.Content>
-      <FontAwesome
-        name="trash"
-        color="red"
-        size={25}
-        onPress={() => removeFavouritePokemon(pokemonDetails.id)}
-      />
+      <FontAwesomeTrash removeFavouritePokemon={removeFavouritePokemon} pokemonId={pokemonDetails.id}/>
     </ListItem>
   );
 };
