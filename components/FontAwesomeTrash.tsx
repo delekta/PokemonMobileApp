@@ -11,7 +11,7 @@ type FontAwesomeTrashProps = {
   pokemonId: number;
 };
 
-class FontAwesomeTrash extends Component<FontAwesomeTrashProps> {
+export default class FontAwesomeTrash extends Component<FontAwesomeTrashProps> {
   buttonScale = new Animated.Value(1);
 
   handlePressIn = () => {
@@ -40,5 +40,3 @@ class FontAwesomeTrash extends Component<FontAwesomeTrashProps> {
     );
   }
 }
-
-export default FontAwesomeTrash;

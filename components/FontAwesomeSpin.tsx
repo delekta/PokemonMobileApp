@@ -7,7 +7,7 @@ type FontAwesomeSpinProps = {
   isFavouritePokemon: boolean;
 };
 
-class FontAwesomeSpin extends Component<FontAwesomeSpinProps> {
+export default class FontAwesomeSpin extends Component<FontAwesomeSpinProps> {
   spinValue = new Animated.Value(0);
 
   spin = () => {
@@ -43,5 +43,3 @@ class FontAwesomeSpin extends Component<FontAwesomeSpinProps> {
     );
   }
 }
-
-export default FontAwesomeSpin;

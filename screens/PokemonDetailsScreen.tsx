@@ -22,7 +22,7 @@ type Props = StackScreenProps<RootStackParamList, "PokemonDetails">;
 //     return new Promise((res) => setTimeout(res, t))
 // }
 
-export class PokemonDetailsScreen extends Component<
+export default class PokemonDetailsScreen extends Component<
   Props,
   PokemonDetailsState
 > {
@@ -42,27 +42,21 @@ export class PokemonDetailsScreen extends Component<
       this.setState({
         pokemonDetails: json,
       });
-      this.setIsFavouritePokemon();
+      this.setIsFavouritePokemon(json);
     };
     getPokemonDetails();
   }
 
-  setIsFavouritePokemon = () => {
+  setIsFavouritePokemon = (pokemonDetails: PokemonDetails) => {
     this.setState({
-      isFavouritePokemon: this.context.isFavouritePokemon(
-        this.state.pokemonDetails?.id as number
-      ),
+      isFavouritePokemon: this.context.isFavouritePokemon(pokemonDetails.id),
     });
   };
 
-  toggleFavouritePokemon = () => {
+  toggleFavouritePokemon = (pokemonDetails: PokemonDetails) => {
     this.state.isFavouritePokemon
-      ? this.context.removeFavouritePokemon(
-          this.state.pokemonDetails?.id as number
-        )
-      : this.context.addFavouritePokemon(
-          this.state.pokemonDetails as PokemonDetails
-        );
+      ? this.context.removeFavouritePokemon(pokemonDetails.id)
+      : this.context.addFavouritePokemon(pokemonDetails);
     this.setState({
       isFavouritePokemon: !this.state.isFavouritePokemon,
     });
@@ -106,7 +100,9 @@ export class PokemonDetailsScreen extends Component<
 
             {/* FontAwesomeSpin */}
             <FontAwesomeSpin
-              toggleFavouritePokemon={this.toggleFavouritePokemon}
+              toggleFavouritePokemon={() =>
+                this.toggleFavouritePokemon(pokemonDetails)
+              }
               isFavouritePokemon={this.state.isFavouritePokemon}
             />
 
@@ -202,5 +198,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default PokemonDetailsScreen;
