@@ -11,7 +11,7 @@ App is made using React-Native. Data is fetched from PokeApi(https://pokeapi.co)
 
 #### Favourite
 
-<img src="assets/pokedex-screen.png" width="300"/>
+<img src="assets/favourite-screen.png" width="300"/>
 
 #### Items
 
