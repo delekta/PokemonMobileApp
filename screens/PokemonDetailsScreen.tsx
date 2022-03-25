@@ -105,6 +105,7 @@ export class PokemonDetailsScreen extends Component<
             <Text style={styles.name}>{pokemonDetails.name.toUpperCase()}</Text>
 
             {/* FontAwesomeSpin */}
+            {/* {test} */}
             <FontAwesomeSpin
               toggleFavouritePokemon={this.toggleFavouritePokemon}
               isFavouritePokemon={this.state.isFavouritePokemon}
